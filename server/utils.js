@@ -114,7 +114,7 @@ const getDatabases = (report) => {
     if (!report) {
         return {};
     }
-    const rootUrl = "/api-v2/report";
+    const rootUrl = "/plugins/stimulsoft/api";
     let dataUrl = `${rootUrl}/data/${report._id}`;
     return {
         "0": {

@@ -5,13 +5,13 @@ export function renderDesigner(reportId) {
     options.appearance.fullScreenMode = false;
     let designer = new window.Stimulsoft.Designer.StiDesigner(options, 'StiDesigner', false);
     let report = new window.Stimulsoft.Report.StiReport();
-    report.loadFile(`/api-v2/report/mrt/${reportId}`);
+    report.loadFile(`/plugins/stimulsoft/api/mrt/${reportId}`);
     designer.report = report;
     designer.renderHtml("report-designer");
     designer.onSaveReport = async function (args) {
         // 保存报表模板
         let jsonReport = args.report.saveToJsonString();
-        let response = await fetch(`/api-v2/report/mrt/${reportId}`, {
+        let response = await fetch(`/plugins/stimulsoft/api/mrt/${reportId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ export function renderDesigner(reportId) {
 export function renderViewer(reportId) {
     let viewer = new window.Stimulsoft.Viewer.StiViewer(null, 'StiViewer', false);
     let report = new window.Stimulsoft.Report.StiReport();
-    report.loadFile(`/api-v2/report/mrt/${reportId}`);
+    report.loadFile(`/plugins/stimulsoft/api/mrt/${reportId}`);
     viewer.report = report;
     viewer.renderHtml("report-viewer");
     if (!report.getDictionary().dataSources.count) {

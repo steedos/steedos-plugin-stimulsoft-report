@@ -11,7 +11,7 @@ export default async (req, res, next) => {
     if (req.url.startsWith('/static/') || req.url.startsWith('/assets/') || req.url.startsWith('/favicon.ico')) {
         return next()
     }
-    const rootUrl = "/api-v2/report";
+    const rootUrl = "/plugins/stimulsoft";
 
     const loadBranchData = async (branch) => {
         const promises = branch.map(({ route, match }) => {

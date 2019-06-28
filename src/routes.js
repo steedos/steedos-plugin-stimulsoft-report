@@ -7,26 +7,20 @@ import loadData from './helpers/load-data';
 
 const Routes = [
     {
-        path: '/ui/',
+        path: '/web/',
         exact: true,
         component: ReportList,
-        loadData: () => loadData('list', true)
+        loadData: () => loadData('reports', true)
     },
     {
-        path: '/ui/:id',
-        exact: true,
-        component: ReportViewer,
-        isReport: true
-    },
-    {
-        path: '/ui/designer/:id',
+        path: '/web/designer/:id',
         exact: true,
         component: ReportDesigner,
         isReport: true,
         isReportDesigner: true
     },
     {
-        path: '/ui/viewer/:id',
+        path: '/web/viewer/:id',
         exact: true,
         component: ReportViewer,
         isReport: true

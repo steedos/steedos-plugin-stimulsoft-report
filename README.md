@@ -8,16 +8,14 @@
 
 ### 报表API路由
 - GET /plugins/stimulsoft/api/reports #获取报表列表
-- GET /plugins/stimulsoft/api/report/:id #获取报表信息
 - GET /plugins/stimulsoft/api/mrt/:report_id #获取报表模板
 - POST /plugins/stimulsoft/api/mrt/:report_id #保存报表模板
 - GET /plugins/stimulsoft/api/data/:report_id #获取报表数据
 
 ### WEB界面路由
-- /plugins/stimulsoft/web/ #报表浏览界面，显示报表列表，查看报表明细
-- /plugins/stimulsoft/web/report/:id #查看报表详细
-- /plugins/stimulsoft/web/viewer/:id #查看报表详细，同/report/:id
-- /plugins/stimulsoft/web/designer/:id #报表设计工具，同/report/:id
+- /plugins/stimulsoft/web/ #报表浏览界面，显示报表列表，点击查看报表明细
+- /plugins/stimulsoft/web/viewer/:id #查看报表详细
+- /plugins/stimulsoft/web/designer/:id #报表设计工具
 
 ### 静态资源相关路由
 - /plugins/stimulsoft/assets/stimulsoft-report/** #stimulsoft相关js/css资源文件，指向@steedos/stimulsoft-report包的assets文件夹

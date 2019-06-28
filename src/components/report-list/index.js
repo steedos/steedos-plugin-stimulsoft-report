@@ -25,11 +25,11 @@ class ReportList extends Component {
 
     render() {
         let list = this.state.list;
-        let rootUrl = typeof document === 'undefined' ? '/api-v2/report/ui' : '/ui';
+        let rootUrl = typeof document === 'undefined' ? '/plugins/stimulsoft/web' : '/web';
         var items = list.map(function (item) {
             return (
                 <div className="report-list-item" key={item._id}>
-                    <a href={`${rootUrl}/` + item._id}>{item.name}</a>
+                    <a href={`${rootUrl}/viewer/` + item._id}>{item.name}</a>
                     <a href={`${rootUrl}/designer/` + item._id}>编辑</a>
                 </div>
             );
@@ -43,7 +43,7 @@ class ReportList extends Component {
 
     async componentDidMount(){
         // 客户端需要主动请求数据
-        let reports = await loadData('list');
+        let reports = await loadData('reports');
         let list = [];
         for (let key in reports){
             list.push(reports[key]);

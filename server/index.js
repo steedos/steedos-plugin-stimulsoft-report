@@ -8,10 +8,6 @@ import requestHandler from './requestHandler';
 // import objectql from '@steedos/objectql';
 const objectql = require("@steedos/objectql");
 
-const port = 3200;
-const rootUrl = "/api-v2/report";
-process.env.PORT = port;
-
 let stimulsoftAssets = path.join(path.dirname(require.resolve("@steedos/stimulsoft-report")), "assets");
 let objectsDir = path.resolve('./objects')
 let reportsDir = path.resolve('./reports')
@@ -37,10 +33,13 @@ _.each(objectql.getSteedosSchema().getDataSources(), function (datasource, name)
     }));
 })
 
+const port = 3200;
+const rootUrl = "/plugins/stimulsoft";
+process.env.PORT = port;
 app
     .disable('x-powered-by')
     .use(`${rootUrl}/assets/stimulsoft-report/`, express.static(stimulsoftAssets))
-    .use(`${rootUrl}`, ReportRouter.routes)
+    .use(`${rootUrl}/api`, ReportRouter.routes)
 
 app.use(rootUrl, requestHandler);
 
@@ -50,7 +49,7 @@ app.listen(process.env.PORT || 3000, function (error) {
     if (error) {
         console.error(error)
     } else {
-        console.info('==> Listening on port %s. Open up http://localhost:%s/api-v2/report/ui in your browser.', port, port)
+        console.info('==> Listening on port %s. Open up http://localhost:%s/plugins/stimulsoft/web in your browser.', port, port)
     }
 });
 
