@@ -1,22 +1,20 @@
-# Stimulsoft Report Plugin for steedos
+# Stimulsoft Report Plugin / Steedos 报表插件
 
-# Installation
+# 安装
 
 ```
 $ yarn
 ```
 
-# Run Client
+# 运行客户端
 ```
 $ yarn start
 ```
 
-# Run Server
+# 运行服务端
 ```
 $ yarn server
 ```
-
-
 
 # 报表相关接口
 
@@ -38,7 +36,7 @@ $ yarn server
 ## 数据API相关
 - GET /api-v2/report/list #获取报表列表
 - GET /api-v2/report/mrt/:report_id #获取报表模板
-- POST/api-v2 /report/mrt/:report_id #保存报表模板
+- POST/api-v2 report/mrt/:report_id #保存报表模板
 - GET /api-v2/report/data/:report_id #获取报表数据
 
 
