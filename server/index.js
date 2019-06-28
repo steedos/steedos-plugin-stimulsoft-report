@@ -36,6 +36,7 @@ _.each(objectql.getSteedosSchema().getDataSources(), function (datasource, name)
 const port = 3200;
 const rootUrl = "/plugins/stimulsoft";
 process.env.PORT = port;
+process.env.ROOT_URL = "http://localhost:3200";
 app
     .disable('x-powered-by')
     .use(`${rootUrl}/assets/stimulsoft-report/`, express.static(stimulsoftAssets))
