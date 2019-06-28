@@ -1,20 +1,5 @@
 # Steedos Stimulsoft报表插件
 
-# 安装依赖包
-
-```
-$ yarn
-```
-
-# 运行客户端
-```
-$ yarn start
-```
-
-# 运行服务端
-```
-$ yarn server
-```
 
 # 报表相关接口
 
@@ -45,3 +30,18 @@ $ yarn server
 
 
 
+### 安装依赖包
+
+```
+$ yarn
+```
+
+### 运行客户端
+```
+$ yarn start
+```
+
+### 运行服务端
+```
+$ yarn server
+```
