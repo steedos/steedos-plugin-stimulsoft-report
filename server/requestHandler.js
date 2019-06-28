@@ -5,6 +5,7 @@ import App from "../src/App";
 import buildPath from '../build/asset-manifest.json';
 import routes from '../src/routes';
 import { matchRoutes } from 'react-router-config';
+import { renderDesigner, renderViewer } from '../src/renderReport';
 
 export default async (req, res, next) => {
     if (req.url.startsWith('/static/') || req.url.startsWith('/assets/') || req.url.startsWith('/favicon.ico')) {
@@ -45,7 +46,11 @@ export default async (req, res, next) => {
         let isReport = !!reportBranch;
         let reportHeadTags = "";
         let reportScriptTags = "";
-        if (isReport){
+        if (isReport) {
+            const reportDesingerBranch = branch.find(({ route, match }) => {
+                return route.isReportDesigner;
+            });
+            let isReportDesigner = !!reportDesingerBranch;
             reportHeadTags = `
                 <link href="${rootUrl}/assets/stimulsoft-report/css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet">
                 <link href="${rootUrl}/assets/stimulsoft-report/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet">
@@ -54,35 +59,24 @@ export default async (req, res, next) => {
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.viewer.js" type="text/javascript"></script>
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.designer.js" type="text/javascript"></script>
             `;
-            reportScriptTags = `
-                <script type="text/javascript">
-                    let options = new window.Stimulsoft.Designer.StiDesignerOptions();
-                    options.appearance.fullScreenMode = false;
-                    let designer = new window.Stimulsoft.Designer.StiDesigner(options, 'StiDesigner', false);
-                    let report = new window.Stimulsoft.Report.StiReport();
-                    let reportId = "contracts";
-                    report.loadFile("${rootUrl}/mrt/" + reportId);
-                    designer.report = report;
-                    designer.renderHtml("report-designer");
-                    designer.onSaveReport = async function (args) {
-                        // 保存报表模板
-                        let jsonReport = args.report.saveToJsonString();
-                        let response = await fetch("${rootUrl}/mrt/" + reportId, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: jsonReport
-                        });
-                        if (!response.ok){
-                            window.Stimulsoft.System.StiError.showError("保存失败", true);
-                        }
-                    }
-                    if(!report.getDictionary().dataSources.count){
-                        window.Stimulsoft.System.StiError.showError("未找到报表", true);
-                    }
-                </script>
-            `;
+            if (isReportDesigner) {
+                reportScriptTags = `
+                    <script type="text/javascript">
+                        let ps = this.location.pathname.split("/");
+                        let reportId = ps[ps.length - 1];
+                        (${renderDesigner})(reportId);
+                    </script>
+                `;
+            }
+            else {
+                reportScriptTags = `
+                    <script type="text/javascript">
+                        let ps = this.location.pathname.split("/");
+                        let reportId = ps[ps.length - 1];
+                        (${renderViewer})(reportId);
+                    </script>
+                `;
+            }
         }
         const frontHtml = `<!DOCTYPE html>
             <html lang="en">

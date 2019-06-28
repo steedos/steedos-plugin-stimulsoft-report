@@ -22,7 +22,8 @@ const Routes = [
         path: '/ui/designer/:id',
         exact: true,
         component: ReportDesigner,
-        isReport: true
+        isReport: true,
+        isReportDesigner: true
     },
     {
         path: '/ui/viewer/:id',

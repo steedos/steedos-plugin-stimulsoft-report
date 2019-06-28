@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import renderReport from '../../renderReport';
 
 class ReportViewer extends Component {
     render() {
@@ -6,15 +7,8 @@ class ReportViewer extends Component {
     }          
 
     componentDidMount(){
-        let viewer = new window.Stimulsoft.Viewer.StiViewer(null, 'StiViewer', false);
-        let report = new window.Stimulsoft.Report.StiReport();
         let reportId = this.props.match.params.id;
-        report.loadFile(`/api-v2/report/mrt/${reportId}`);
-        viewer.report = report;
-        viewer.renderHtml("report-viewer");
-        if (!report.getDictionary().dataSources.count) {
-            window.Stimulsoft.System.StiError.showError("未找到报表", true);
-        }
+        renderReport(reportId);
     }
 }
 
