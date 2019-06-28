@@ -1,8 +1,7 @@
 # Steedos Stimulsoft报表插件
 
 ### 报表Express请求总入口
-- /plugins/stimulsoft/
-> 规则 
+- 总入口 /plugins/stimulsoft/
 - 所有/plugins/stimulsoft/前缀的请求都会经过该总入口
 - 发现URL以assets或static开头则请求下面的` 静态资源相关`
 - 如果不是静态资源则返回html内容，详细请见`WEB界面相关`
