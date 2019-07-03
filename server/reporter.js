@@ -1,9 +1,9 @@
-const utils = require('./utils');
-const request = require('graphql-request').request;
+import { getObject } from './utils';
+import { request } from 'graphql-request';
 
-let reporter = {
+export default {
   async getReport(id) {
-    let object = utils.getObject('reports');
+    let object = getObject('reports');
     let report = await object.findOne(id);
     return report;
   },
@@ -63,7 +63,7 @@ let reporter = {
       return dataResult;
     }
     else {
-      let object = utils.getObject(report.object_name);
+      let object = getObject(report.object_name);
       let dataResult = await object.find({
         fields: report.fields,
         filters: report.filters
@@ -74,5 +74,3 @@ let reporter = {
     }
   }
 };
-
-module.exports = reporter;

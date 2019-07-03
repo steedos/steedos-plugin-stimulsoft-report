@@ -1,7 +1,7 @@
-const utils = require('./utils');
-const fs = require("fs");
-const path = require("path");
-const _ = require('underscore');
+import fs from 'fs';
+import path from 'path';
+import _ from 'underscore';
+import { getDatabases, getDataSources } from './utils';
 
 const saveReportToMrtFile = (filePath, content) => {
     fs.writeFileSync(filePath, JSON.stringify(content));
@@ -12,8 +12,8 @@ const getMrtDictionary = (report) => {
         return {
         }
     }
-    let databases = utils.getDatabases(report);
-    let dataSources = utils.getDataSources(report);
+    let databases = getDatabases(report);
+    let dataSources = getDataSources(report);
     return {
         "DataSources": dataSources,
         "Databases": databases
@@ -97,8 +97,6 @@ const getMrtContent = (report) => {
     }
 }
 
-exports.saveReportToMrtFile = saveReportToMrtFile;
-exports.initMrts = initMrts;
-exports.getMrtDictionary = getMrtDictionary;
-exports.getBlankMrtContent = getBlankMrtContent;
-exports.getMrtContent = getMrtContent;
+export { saveReportToMrtFile, initMrts, getMrtDictionary, getBlankMrtContent, getMrtContent };
+
+

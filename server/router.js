@@ -1,7 +1,7 @@
 import path from 'path';
 import express from 'express';
 import reporter from './reporter';
-import mrt from './mrt';
+import { getMrtContent, saveReportToMrtFile } from './mrt';
 import requestHandler from './requestHandler';
 import bodyParser from 'body-parser';
 const objectql = require("@steedos/objectql");
@@ -24,7 +24,7 @@ routes.get(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
   let datasource = objectql.getSteedosSchema().getDataSource();
   let report = datasource.getReport(report_id);
-  let mrtContent = mrt.getMrtContent(report);
+  let mrtContent = getMrtContent(report);
   res.send(mrtContent);
 });
 
@@ -33,7 +33,7 @@ routes.post(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
   let datasource = objectql.getSteedosSchema().getDataSource();
   let report = datasource.getReport(report_id).toConfig();
-  mrt.saveReportToMrtFile(report.mrt_file, req.body);
+  saveReportToMrtFile(report.mrt_file, req.body);
   res.send({});
 });
 

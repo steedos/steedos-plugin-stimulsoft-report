@@ -142,7 +142,4 @@ const getDataSources = (report)=> {
     };
 }
 
-exports.getObject = getObject;
-exports.getObjectConfig = getObjectConfig;
-exports.getDatabases = getDatabases;
-exports.getDataSources = getDataSources;
+export { getObject, getObjectConfig, getDatabases, getDataSources };
