@@ -5,7 +5,6 @@ import App from "../src/App";
 import buildPath from '../build/asset-manifest.json';
 import routes from '../src/routes';
 import { matchRoutes } from 'react-router-config';
-import { renderDesigner, renderViewer } from '../src/renderReport';
 
 export default async (req, res, next) => {
     if (req.url.startsWith('/static/') || req.url.startsWith('/assets/') || req.url.startsWith('/favicon.ico')) {
@@ -58,13 +57,14 @@ export default async (req, res, next) => {
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.dashboards.js" type="text/javascript"></script>
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.viewer.js" type="text/javascript"></script>
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.designer.js" type="text/javascript"></script>
+                <script src="${rootUrl}/static/js/browser.js" type="text/javascript"></script>
             `;
             if (isReportDesigner) {
                 reportScriptTags = `
                     <script type="text/javascript">
                         let ps = this.location.pathname.split("/");
                         let reportId = ps[ps.length - 1];
-                        (${renderDesigner})(reportId);
+                        browser.renderReport(reportId, true);
                     </script>
                 `;
             }
@@ -73,7 +73,7 @@ export default async (req, res, next) => {
                     <script type="text/javascript">
                         let ps = this.location.pathname.split("/");
                         let reportId = ps[ps.length - 1];
-                        (${renderViewer})(reportId);
+                        browser.renderReport(reportId);
                     </script>
                 `;
             }

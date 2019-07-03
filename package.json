@@ -21,9 +21,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npm run build:browser",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "build:browser": "webpack --config webpack.browser.js && cp dist/browser.js build/static/js",
     "server": "npm run build && node start.js"
   },
   "eslintConfig": {
@@ -43,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.4.4"
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "webpack-cli": "^3.3.5"
   }
 }
