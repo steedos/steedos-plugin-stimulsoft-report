@@ -4,11 +4,9 @@ import graphqlHTTP from 'express-graphql';
 import _ from 'underscore';
 import ReportRouter from './router';
 import { initMrts } from './mrt';
-import requestHandler from './requestHandler';
 // import objectql from '@steedos/objectql';
 const objectql = require("@steedos/objectql");
 
-let stimulsoftAssets = path.join(path.dirname(require.resolve("@steedos/stimulsoft-report")), "assets");
 let objectsDir = path.resolve('./objects')
 let reportsDir = path.resolve('./reports')
 objectql.getSteedosSchema().addDataSource('default', {
@@ -34,17 +32,10 @@ _.each(objectql.getSteedosSchema().getDataSources(), function (datasource, name)
 })
 
 const port = 3200;
-const rootUrl = "/plugins/stimulsoft";
 process.env.PORT = port;
 process.env.ROOT_URL = "http://localhost:3200";
-app
-    .disable('x-powered-by')
-    .use(`${rootUrl}/assets/stimulsoft-report/`, express.static(stimulsoftAssets))
-    .use(`${rootUrl}/api`, ReportRouter.routes)
 
-app.use(rootUrl, requestHandler);
-
-app.use(rootUrl, express.static(path.resolve('build')));
+app.use(ReportRouter.routes);
 
 app.listen(process.env.PORT || 3000, function (error) {
     if (error) {
