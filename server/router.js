@@ -57,4 +57,4 @@ routes.use(rootUrl, requestHandler);
 
 routes.use(rootUrl, express.static(path.resolve('build')));
 
-module.exports.routes = routes;
+export default routes;

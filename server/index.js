@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import _ from 'underscore';
-import ReportRouter from './router';
+import reportRoutes from './router';
 import { initMrts } from './mrt';
 // import objectql from '@steedos/objectql';
 const objectql = require("@steedos/objectql");
@@ -35,7 +35,7 @@ const port = 3200;
 process.env.PORT = port;
 process.env.ROOT_URL = "http://localhost:3200";
 
-app.use(ReportRouter.routes);
+app.use(reportRoutes);
 
 app.listen(process.env.PORT || 3000, function (error) {
     if (error) {
