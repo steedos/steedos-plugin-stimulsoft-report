@@ -24,7 +24,7 @@
     "build": "react-scripts build && npm run build:browser",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:browser": "webpack --config webpack.browser.js && cp dist/browser.js build/static/js",
+    "build:browser": "webpack --config webpack.browser.js && cp dist/ssr-browser.js build/static/js",
     "server": "npm run build && node start.js"
   },
   "eslintConfig": {

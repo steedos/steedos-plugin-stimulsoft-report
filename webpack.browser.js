@@ -2,11 +2,11 @@ var path = require('path');
 
 module.exports = {
     mode: 'production',
-    entry: './src/browser.js',
+    entry: './src/ssr-browser.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'browser.js',
-        library: 'browser',
+        filename: 'ssr-browser.js',
+        library: 'ssrBrowser',
         libraryTarget: "window"
     }
 };

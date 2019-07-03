@@ -57,14 +57,14 @@ export default async (req, res, next) => {
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.dashboards.js" type="text/javascript"></script>
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.viewer.js" type="text/javascript"></script>
                 <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.designer.js" type="text/javascript"></script>
-                <script src="${rootUrl}/static/js/browser.js" type="text/javascript"></script>
+                <script src="${rootUrl}/static/js/ssr-browser.js" type="text/javascript"></script>
             `;
             if (isReportDesigner) {
                 reportScriptTags = `
                     <script type="text/javascript">
                         let ps = this.location.pathname.split("/");
                         let reportId = ps[ps.length - 1];
-                        browser.renderReport(reportId, true);
+                        window.ssrBrowser.renderReport(reportId, true);
                     </script>
                 `;
             }
@@ -73,7 +73,7 @@ export default async (req, res, next) => {
                     <script type="text/javascript">
                         let ps = this.location.pathname.split("/");
                         let reportId = ps[ps.length - 1];
-                        browser.renderReport(reportId);
+                        window.ssrBrowser.renderReport(reportId);
                     </script>
                 `;
             }
