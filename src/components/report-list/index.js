@@ -25,12 +25,15 @@ class ReportList extends Component {
 
     render() {
         let list = this.state.list;
-        let rootUrl = typeof document === 'undefined' ? '/plugins/stimulsoft/web' : '/web';
+        let rootUrl = `/plugins/stimulsoft`;
+        let rootWebUrl = typeof document === 'undefined' ? rootUrl : '';
+        let viewerUrl = `${rootWebUrl}/assets/viewer.html?reportUrl=${rootUrl}/api/mrt`;
+        let designerUrl = `${rootWebUrl}/assets/designer.html?reportUrl=${rootUrl}/api/mrt`;
         var items = list.map(function (item) {
             return (
                 <div className="report-list-item" key={item._id}>
-                    <a href={`${rootUrl}/viewer/` + item._id}>{item.name}</a>
-                    <a href={`${rootUrl}/designer/` + item._id}>编辑</a>
+                    <a href={`${viewerUrl}/` + item._id}>{item.name}</a>
+                    <a href={`${designerUrl}/` + item._id}>编辑</a>
                 </div>
             );
         }, this);
