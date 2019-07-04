@@ -9,7 +9,6 @@ const objectql = require("@steedos/objectql");
 const routes = express();
 const rootUrl = "/plugins/stimulsoft";
 const apiUrl = `${rootUrl}/api`;
-const stimulsoftAssets = path.join(path.dirname(require.resolve("@steedos/stimulsoft-report")), "assets");
 
 routes.use(bodyParser.json());
 

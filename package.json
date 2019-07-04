@@ -5,7 +5,6 @@
   "dependencies": {
     "@babel/register": "^7.4.4",
     "@steedos/objectql": "^0.0.19",
-    "@steedos/stimulsoft-report": "^0.0.1",
     "cross-fetch": "^3.0.4",
     "css-modules-require-hook": "^4.2.3",
     "express-graphql": "^0.8.0",

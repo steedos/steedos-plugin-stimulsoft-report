@@ -39,45 +39,6 @@ export default async (req, res, next) => {
         });
         res.end();
     } else {
-        const reportBranch = branch.find(({ route, match }) => {
-            return route.isReport;
-        });
-        let isReport = !!reportBranch;
-        let reportHeadTags = "";
-        let reportScriptTags = "";
-        if (isReport) {
-            const reportDesingerBranch = branch.find(({ route, match }) => {
-                return route.isReportDesigner;
-            });
-            let isReportDesigner = !!reportDesingerBranch;
-            reportHeadTags = `
-                <link href="${rootUrl}/assets/stimulsoft-report/css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet">
-                <link href="${rootUrl}/assets/stimulsoft-report/css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet">
-                <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.reports.js" type="text/javascript"></script>
-                <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.dashboards.js" type="text/javascript"></script>
-                <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.viewer.js" type="text/javascript"></script>
-                <script src="${rootUrl}/assets/stimulsoft-report/js/stimulsoft.designer.js" type="text/javascript"></script>
-                <script src="${rootUrl}/static/js/ssr-browser.js" type="text/javascript"></script>
-            `;
-            if (isReportDesigner) {
-                reportScriptTags = `
-                    <script type="text/javascript">
-                        let ps = this.location.pathname.split("/");
-                        let reportId = ps[ps.length - 1];
-                        window.ssrBrowser.renderReport(reportId, true);
-                    </script>
-                `;
-            }
-            else {
-                reportScriptTags = `
-                    <script type="text/javascript">
-                        let ps = this.location.pathname.split("/");
-                        let reportId = ps[ps.length - 1];
-                        window.ssrBrowser.renderReport(reportId);
-                    </script>
-                `;
-            }
-        }
         const frontHtml = `<!DOCTYPE html>
             <html lang="en">
                 <head>
@@ -86,7 +47,6 @@ export default async (req, res, next) => {
                     <meta name="theme-color" content="#000000">
                     <title>Steedos Report</title>
                     <link rel="stylesheet" type="text/css" href="${rootUrl}${buildPath.files["main.css"]}">
-                    ${reportHeadTags}
                 </head>
                 <body>
                     <noscript>
@@ -94,7 +54,6 @@ export default async (req, res, next) => {
                     </noscript>
                     <div id="root">${frontComponents}</div>
                     <script src="${rootUrl}${buildPath.files['main.js']}"></script>
-                    ${reportScriptTags}
                 </body>
             </html>`
 
