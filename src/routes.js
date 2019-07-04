@@ -12,19 +12,19 @@ const Routes = [
         component: ReportList,
         loadData: () => loadData('reports', true)
     },
-    {
-        path: '/web/designer/:id',
-        exact: true,
-        component: ReportDesigner,
-        isReport: true,
-        isReportDesigner: true
-    },
-    {
-        path: '/web/viewer/:id',
-        exact: true,
-        component: ReportViewer,
-        isReport: true
-    },
+    // {
+    //     path: '/web/designer/:id',
+    //     exact: true,
+    //     component: ReportDesigner,
+    //     isReport: true,
+    //     isReportDesigner: true
+    // },
+    // {
+    //     path: '/web/viewer/:id',
+    //     exact: true,
+    //     component: ReportViewer,
+    //     isReport: true
+    // },
     {
         component: NotFound
     }

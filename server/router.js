@@ -13,12 +13,6 @@ const stimulsoftAssets = path.join(path.dirname(require.resolve("@steedos/stimul
 
 routes.use(bodyParser.json());
 
-routes
-  .disable('x-powered-by')
-  .use(`${rootUrl}/assets/stimulsoft-report/`, express.static(stimulsoftAssets));
-  // .use(`${rootUrl}/api`, ReportRouter.routes)
-
-
 // 获取报表模板
 routes.get(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
@@ -51,6 +45,18 @@ routes.get(`${apiUrl}/reports`, async (req, res) => {
   let datasource = objectql.getSteedosSchema().getDataSource();
   let report = datasource.getReportsConfig();
   res.send(report);
+});
+
+routes.get(`${rootUrl}/web/designer/:report_id`, async (req, res) => {
+  let report_id = req.params.report_id;
+  res.redirect(301, `${rootUrl}/assets/designer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
+  res.end();
+});
+
+routes.get(`${rootUrl}/web/viewer/:report_id`, async (req, res) => {
+  let report_id = req.params.report_id;
+  res.redirect(301, `${rootUrl}/assets/viewer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
+  res.end();
 });
 
 routes.use(rootUrl, requestHandler);
