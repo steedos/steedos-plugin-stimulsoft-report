@@ -56,5 +56,6 @@ routes.get(`${apiUrl}/reports`, async (req, res) => {
 routes.use(rootUrl, requestHandler);
 
 routes.use(rootUrl, express.static(path.resolve('build')));
+routes.use(rootUrl, express.static(path.resolve('public')));
 
 export default routes;
