@@ -1,2 +1,2 @@
-export { default as reportRoutes } from './router';
-export { initMrts } from './mrt';
+export { default as routes } from './router';
+export * from './mrt';

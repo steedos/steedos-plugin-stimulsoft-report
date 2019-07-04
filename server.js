@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import _ from 'underscore';
-import { reportRoutes, initMrts } from './server/index'
+import { routes as reportRoutes, initMrts } from './server/index'
 // import objectql from '@steedos/objectql';
 const objectql = require("@steedos/objectql");
 
