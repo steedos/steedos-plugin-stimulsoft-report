@@ -20,10 +20,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && npm run build:browser",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:browser": "webpack --config webpack.browser.js && cp dist/ssr-browser.js build/static/js",
     "server": "npm run build && node start.js"
   },
   "eslintConfig": {
