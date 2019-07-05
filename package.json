@@ -1,7 +1,13 @@
 {
-  "name": "demo-app3",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@steedos/plugin-stimulsoft-report",
+  "version": "0.0.1",
+  "description": "Steedos Stimulsoft报表插件",
+  "main": "index.js",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@babel/register": "^7.4.4",
     "@steedos/objectql": "^0.1.0",
@@ -42,7 +48,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "webpack-cli": "^3.3.5"
+    "@babel/plugin-transform-runtime": "^7.4.4"
   }
 }
