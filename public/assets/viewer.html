@@ -17,17 +17,12 @@
     <title>Steedos Report</title>
     <link href="css/stimulsoft.viewer.office2013.whiteblue.css" rel="stylesheet">
     <link href="css/stimulsoft.designer.office2013.whiteblue.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <script src="js/stimulsoft.reports.js" type="text/javascript"></script>
     <script src="js/stimulsoft.dashboards.js" type="text/javascript"></script>
     <script src="js/stimulsoft.viewer.js" type="text/javascript"></script>
     <script src="js/stimulsoft.designer.js" type="text/javascript"></script>
     <script src="js/URI.min.js" type="text/javascript"></script>
-    <style type="text/css">
-      body {
-        margin: 0;
-        padding: 0;
-      }
-    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -43,6 +38,8 @@
           window.Stimulsoft.System.StiError.showError("未找到报表", true);
         }
       }
+      window.Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
+      window.Stimulsoft.Base.Localization.StiLocalization.cultureName = "Chinese (Simplified)";
       var query = URI.parseQuery(location.search)
       renderViewer(query.reportUrl);
     </script>
