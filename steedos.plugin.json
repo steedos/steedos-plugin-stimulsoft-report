@@ -1,0 +1,11 @@
+{
+    "id": "com.steedos.plugin.stimulsoft.report",
+    "name": "Stimulsoft Report",
+    "description": "Stimulsoft Report designer and viewer for Steedos Objects.",
+    "server": {
+        "main": "server/index.js"
+    },
+    "webapp": {
+        "main": "webapp/dist/main.js"
+    }
+}
