@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import _ from 'underscore';
-import { routes as reportRoutes, initMrts } from './server/index'
+import initReport from './server/index';
 // import objectql from '@steedos/objectql';
 const objectql = require("@steedos/objectql");
 
@@ -21,11 +21,9 @@ let app = express();
 app.use(function (req, res, next) {
     //TODO 处理userId
     next();
-})
+});
 
 _.each(objectql.getSteedosSchema().getDataSources(), function (datasource, name) {
-    initMrts(datasource.getReports(), reportsDir);
-
     app.use(`/graphql/${name}`, graphqlHTTP({
         schema: datasource.buildGraphQLSchema(),
         graphiql: true
@@ -36,7 +34,7 @@ const port = 3200;
 process.env.PORT = port;
 process.env.ROOT_URL = "http://localhost:3200";
 
-app.use(reportRoutes);
+initReport(app);
 
 app.listen(process.env.PORT || 3000, function (error) {
     if (error) {

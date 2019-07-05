@@ -1159,10 +1159,8 @@
   dependencies:
     devextreme "^18.2.6"
 
-"@steedos/objectql@^0.0.19":
+"@steedos/objectql@file:../object-server/packages/objectql":
   version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@steedos/objectql/-/objectql-0.0.19.tgz#217f8e6cbf98361fa8c1e015f95772239775e26a"
-  integrity sha512-AutrS6vb3cz+SD3NVhsKJ0UFhyxYqmmWGm9ITremCxag1Go4rSzybUTHy/zC9RMz+bwnG0iQPEl890Yd/8Xz3w==
   dependencies:
     "@salesforce/dev-config" "^1.4.4"
     "@salesforce/kit" "^1.0.4"

@@ -61,10 +61,8 @@ const getBlankMrtContent = (report) => {
     }
 }
 
-const initMrts = (reports, reportsDir) => {
+const initMrts = (reports) => {
     _.forEach(reports, (report) => {
-        let filePath = path.join(reportsDir, `${report._id}.mrt`);
-        report.mrt_file = filePath;
         let mrtContent = getMrtContent(report);
         if (mrtContent){
             mrtContent.Dictionary = getMrtDictionary(report);
@@ -72,7 +70,7 @@ const initMrts = (reports, reportsDir) => {
         else{
             mrtContent = getBlankMrtContent(report);
         }
-        saveReportToMrtFile(filePath, mrtContent);
+        saveReportToMrtFile(report.mrt_file, mrtContent);
     });
 }
 
