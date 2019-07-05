@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/register": "^7.4.4",
-    "@steedos/objectql": "file:D:\\\\GitHub\\\\object-server\\\\packages\\\\objectql",
+    "@steedos/objectql": "^0.1.0",
     "cross-fetch": "^3.0.4",
     "css-modules-require-hook": "^4.2.3",
     "express-graphql": "^0.8.0",
