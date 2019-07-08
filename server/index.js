@@ -3,7 +3,7 @@ import { initMrts } from './mrt';
 import _ from 'underscore';
 const objectql = require("@steedos/objectql");
 
-export default function init(app){
+export function initPlugin(app){
     _.each(objectql.getSteedosSchema().getDataSources(), function (datasource, name) {
         initMrts(datasource.getReports());
     });
