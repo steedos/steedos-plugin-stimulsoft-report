@@ -17,9 +17,12 @@
 - /plugins/stimulsoft/web/viewer/:id #查看报表详细
 - /plugins/stimulsoft/web/designer/:id #报表设计工具
 
+> 上述查看报表详细界面是重定向到`/plugins/stimulsoft/assets/viewer.html?reportUrl=/plugins/stimulsoft/api/mrt/:id`静态界面的
+> 上述报表设计工具界面是重定向到`/plugins/stimulsoft/assets/designer.html?reportUrl=/plugins/stimulsoft/api/mrt/:id`静态界面的
+
 ### 静态资源相关路由
-- /plugins/stimulsoft/assets/stimulsoft-report/** #stimulsoft相关js/css资源文件，指向@steedos/stimulsoft-report包的assets文件夹
-- /plugins/stimulsoft/assets/react/** #React打包后的js/css资源文件，指向react的build文件夹的static文件夹
+- /plugins/stimulsoft/assets/** #Stimulsoft相关js/css/html资源文件，指向react的build文件夹的assets文件夹
+- /plugins/stimulsoft/static/** #React打包后的js/css资源文件，指向react的build文件夹的static文件夹
 
 
 # 开发说明
