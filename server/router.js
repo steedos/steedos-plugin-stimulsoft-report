@@ -46,12 +46,14 @@ routes.get(`${apiUrl}/reports`, async (req, res) => {
   res.send(report);
 });
 
+// 报表设计器WEB界面重定向到相关静态html界面
 routes.get(`${rootUrl}/web/designer/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
   res.redirect(301, `${rootUrl}/assets/designer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
   res.end();
 });
 
+// 报表查看WEB界面重定向到相关静态html界面
 routes.get(`${rootUrl}/web/viewer/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
   res.redirect(301, `${rootUrl}/assets/viewer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
@@ -61,6 +63,5 @@ routes.get(`${rootUrl}/web/viewer/:report_id`, async (req, res) => {
 routes.use(rootUrl, requestHandler);
 
 routes.use(rootUrl, express.static(path.resolve('build')));
-routes.use(rootUrl, express.static(path.resolve('public')));
 
 export default routes;
