@@ -2,15 +2,15 @@
   "name": "@steedos/plugin-stimulsoft-report",
   "version": "0.0.1",
   "description": "Steedos Stimulsoft报表插件",
-  "main": "server/index.js",
+  "main": "dist/server.bundle.js",
   "license": "MIT",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@babel/register": "^7.4.4",
     "@steedos/objectql": "^0.1.0",
+    "babel-loader": "8.0.5",
     "cross-fetch": "^3.0.4",
     "css-modules-require-hook": "^4.2.3",
     "express-graphql": "^0.8.0",
@@ -29,7 +29,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "npm run build && node start.js"
+    "server": "npm run build && node start.js",
+    "build:ssr": "webpack --config webpack.server.js",
+    "server:prod": "npm run build:ssr && node dist/server.bundle.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +50,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.4.4"
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "source-map-explorer": "^2.0.1",
+    "webpack-cli": "^3.3.5"
   }
 }
