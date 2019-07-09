@@ -2,7 +2,7 @@
   "name": "@steedos/plugin-stimulsoft-report",
   "version": "0.0.1",
   "description": "Steedos Stimulsoft报表插件",
-  "main": "dist/server.bundle.js",
+  "main": "lib/server/index",
   "license": "MIT",
   "private": false,
   "publishConfig": {
@@ -29,9 +29,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "npm run build && node start.js",
-    "build:ssr": "webpack --config webpack.server.js",
-    "server:prod": "npm run build:ssr && node dist/server.bundle.js"
+    "server": "npm run compile && node start.js",
+    "compile": "npm run build && babel -d lib/src src/ && babel -d lib/server server/ && cp -r build lib",
+    "prepublish": "npm run compile"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,7 +50,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-proposal-json-strings": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-syntax-import-meta": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-stage-2": "^7.0.0",
     "@babel/register": "^7.4.4",
     "source-map-explorer": "^2.0.1",
     "webpack-cli": "^3.3.5"

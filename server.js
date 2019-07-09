@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import _ from 'underscore';
-import { initPlugin } from './server/index';
+import { initPlugin } from './lib/server/index';
 // import objectql from '@steedos/objectql';
 const objectql = require("@steedos/objectql");
 

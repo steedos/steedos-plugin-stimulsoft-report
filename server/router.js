@@ -42,8 +42,8 @@ routes.get(`${apiUrl}/data/:report_id`, async (req, res) => {
 // 获取报表列表
 routes.get(`${apiUrl}/reports`, async (req, res) => {
   let datasource = objectql.getSteedosSchema().getDataSource();
-  let report = datasource.getReportsConfig();
-  res.send(report);
+  let reports = datasource.getReportsConfig();
+  res.send(reports);
 });
 
 // 报表设计器WEB界面重定向到相关静态html界面

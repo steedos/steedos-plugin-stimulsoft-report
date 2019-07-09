@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './index.css';
 import loadData from '../../helpers/load-data';
 
 class ReportList extends Component {
