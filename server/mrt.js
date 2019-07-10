@@ -62,7 +62,7 @@ const getBlankMrtContent = (report) => {
 }
 
 const initMrts = (reports) => {
-    _.forEach(reports, (report) => {
+    _.each(reports, (report) => {
         let mrtContent = getMrtContent(report);
         if (mrtContent){
             mrtContent.Dictionary = getMrtDictionary(report);

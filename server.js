@@ -7,13 +7,11 @@ import { initPlugin } from './lib/server/index';
 const objectql = require("@steedos/objectql");
 
 let objectsDir = path.resolve('./objects')
-let reportsDir = path.resolve('./reports')
 objectql.getSteedosSchema().addDataSource('default', {
     driver: 'mongo',
     // url: 'mongodb://192.168.0.77/qhd-beta',
     url: 'mongodb://192.168.0.21/fssh20190329',
-    objectFiles: [objectsDir],
-    reportFiles: [reportsDir]
+    objectFiles: [objectsDir]
 });
 
 let app = express();

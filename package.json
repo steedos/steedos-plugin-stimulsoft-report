@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@steedos/objectql": "^0.1.0",
+    "app-root-path": "^2.2.1",
     "babel-loader": "8.0.5",
     "cross-fetch": "^3.0.4",
     "css-modules-require-hook": "^4.2.3",
     "express-graphql": "^0.8.0",
+    "globby": "9.1.0",
     "graphql-request": "^1.8.2",
     "http": "^0.0.0",
     "react": "^16.8.6",

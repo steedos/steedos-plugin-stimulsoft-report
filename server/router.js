@@ -4,7 +4,7 @@ import reporter from './reporter';
 import { getMrtContent, saveReportToMrtFile } from './mrt';
 import requestHandler from './requestHandler';
 import bodyParser from 'body-parser';
-const objectql = require("@steedos/objectql");
+import { getReportsConfig, getReport } from './index';
 
 const routes = express();
 const rootUrl = "/plugins/stimulsoft";
@@ -15,8 +15,7 @@ routes.use(bodyParser.json());
 // 获取报表模板
 routes.get(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
-  let datasource = objectql.getSteedosSchema().getDataSource();
-  let report = datasource.getReport(report_id);
+  let report = getReport(report_id);
   let mrtContent = getMrtContent(report);
   res.send(mrtContent);
 });
@@ -24,8 +23,7 @@ routes.get(`${apiUrl}/mrt/:report_id`, async (req, res) => {
 // 报表mrt模板保存
 routes.post(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
-  let datasource = objectql.getSteedosSchema().getDataSource();
-  let report = datasource.getReport(report_id).toConfig();
+  let report = getReport(report_id).toConfig();
   saveReportToMrtFile(report.mrt_file, req.body);
   res.send({});
 });
@@ -33,16 +31,14 @@ routes.post(`${apiUrl}/mrt/:report_id`, async (req, res) => {
 // 获取报表数据
 routes.get(`${apiUrl}/data/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
-  let datasource = objectql.getSteedosSchema().getDataSource();
-  let report = datasource.getReport(report_id);
+  let report = getReport(report_id);
   let data = await reporter.getData(report);
   res.send(data);
 });
 
 // 获取报表列表
 routes.get(`${apiUrl}/reports`, async (req, res) => {
-  let datasource = objectql.getSteedosSchema().getDataSource();
-  let reports = datasource.getReportsConfig();
+  let reports = getReportsConfig();
   res.send(reports);
 });
 
