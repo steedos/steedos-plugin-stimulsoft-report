@@ -58,6 +58,6 @@ routes.get(`${rootUrl}/web/viewer/:report_id`, async (req, res) => {
 
 routes.use(rootUrl, requestHandler);
 
-routes.use(rootUrl, express.static(path.resolve('build')));
+routes.use(rootUrl, express.static(path.resolve(__dirname, "../build")));
 
 export default routes;
