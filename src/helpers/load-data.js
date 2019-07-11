@@ -5,6 +5,9 @@ export default async (resourceType, isProxy) => {
     if (isProxy){
         proxy = process.env.ROOT_URL;
     }
+    if (proxy.endsWith("/")){
+        proxy = proxy.replace(/\/$/, "");
+    }
     let url = `${proxy}/plugins/stimulsoft/api/${resourceType}`;
     let response = await fetch(url, {
         headers: {
