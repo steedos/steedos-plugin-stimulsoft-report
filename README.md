@@ -38,7 +38,12 @@ $ yarn
 $ yarn start
 ```
 
+访问地址: `http://localhost:3000/web`
+
+> 依赖服务端，需要先运行`yarn server`跑起服务端
+
 ### 运行服务端
 ```
 $ yarn server
 ```
+访问地址: `http://localhost:3200/plugins/stimulsoft/web/`
