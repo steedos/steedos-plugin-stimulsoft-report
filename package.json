@@ -1,8 +1,11 @@
 {
   "name": "@steedos/plugin-stimulsoft-report",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Steedos Stimulsoft报表插件",
   "main": "lib/server/index",
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "private": false,
   "publishConfig": {
