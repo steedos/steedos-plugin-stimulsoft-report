@@ -9,14 +9,14 @@
     "access": "public"
   },
   "dependencies": {
-    "@steedos/objectql": "^0.1.0",
+    "@steedos/objectql": "^0.1.1",
     "app-root-path": "^2.2.1",
     "babel-loader": "8.0.5",
     "cross-fetch": "^3.0.4",
     "css-modules-require-hook": "^4.2.3",
     "express-graphql": "^0.8.0",
     "globby": "9.1.0",
-    "graphql-request": "^1.8.2",
+    "graphql": "14.1.1",
     "http": "^0.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -62,5 +62,9 @@
     "@babel/register": "^7.4.4",
     "source-map-explorer": "^2.0.1",
     "webpack-cli": "^3.3.5"
+  },
+  "resolutions": {
+    "graphql": "^14.1.1",
+    "@steedos/objectql": "^0.1.1"
   }
 }

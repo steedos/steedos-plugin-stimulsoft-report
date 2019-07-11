@@ -1,5 +1,6 @@
 import { getObject } from './utils';
-import { request } from 'graphql-request';
+import { graphql } from 'graphql';
+const objectql = require("@steedos/objectql");
 
 export default {
   async getReport(id) {
@@ -9,10 +10,10 @@ export default {
   },
   async getData(report) {
     if (report.graphql) {
-      let proxy = process.env.ROOT_URL;
-      let url = `${proxy}/graphql/default`;
-      let dataResult = await request(url, report.graphql);
-      let items = dataResult[`${report.object_name}`];
+      let schema = objectql.getSteedosSchema().getDataSource().getGraphQLSchema();
+      let dataResult = await graphql(schema, report.graphql);
+      dataResult = dataResult['data'];
+      let items = dataResult ? dataResult[`${report.object_name}`] : null;
       if (items && items.length) {
         let processChildren = (item, parentKey, object) => {
           /**

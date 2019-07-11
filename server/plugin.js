@@ -33,7 +33,6 @@ export default class SteedosPlugin {
     }
 
     useReportFiles(reportFiles) {
-        console.log("======SteedosPlugin==useReportFiles====reportFiles===", reportFiles);
         reportFiles.forEach((reportFile)=>{
             this.useReportFile(reportFile)
         });
