@@ -1,6 +1,6 @@
 {
   "name": "@steedos/plugin-stimulsoft-report",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Steedos Stimulsoft报表插件",
   "main": "lib/server/index",
   "files": [
@@ -36,7 +36,7 @@
     "eject": "react-scripts eject",
     "server": "npm run compile && node start.js",
     "compile": "npm run build && babel -d lib/src src/ && babel -d lib/server server/ && cp -r build lib",
-    "prepublish": "npm run compile"
+    "prepare": "npm run compile"
   },
   "eslintConfig": {
     "extends": "react-app"
