@@ -20,4 +20,5 @@ export function getReport(id) {
 
 export { default as routes } from './router';
 export * from './mrt';
+export { initPlugin as init }
 export default plugin;
