@@ -47,3 +47,26 @@ $ yarn start
 $ yarn server
 ```
 访问地址: `http://localhost:3200/plugins/stimulsoft/web/`
+
+
+### 插件使用
+```
+...
+let app = express();
+...
+plugin.init(app);
+...
+```
+
+参考：https://github.com/steedos/steedos-plugin-stimulsoft-report/blob/master/server.js
+
+Example：https://github.com/steedos/steedos-contracts-app/blob/master/server.js
+
+### 插件配置
+- 插件会自动加载src文件夹中以report.yml后缀且其内容中report_type为'stimulsoft-report'的报表文件
+- 识别到的报表会自动生成对应的以mrt后缀的文件
+- 可以打开报表设计工具设计报表，并保存到mrt后缀文件中
+
+参考：https://github.com/steedos/steedos-plugin-stimulsoft-report/blob/master/src/contracts.report.yml
+
+Example：https://github.com/steedos/steedos-contracts-app/blob/master/src/contracts.report.yml
