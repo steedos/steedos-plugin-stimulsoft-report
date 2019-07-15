@@ -41,8 +41,10 @@ export default class SteedosPlugin {
     useReportFile(filePath) {
         let reportJsons = loadReports(filePath)
         _.each(reportJsons, (json) => {
-            json.mrt_file = path.join(filePath, `${json._id}.mrt`)
-            this.addReport(json._id, json)
+            if (json.report_type === "stimulsoft-report") {
+                json.mrt_file = path.join(filePath, `${json._id}.mrt`)
+                this.addReport(json._id, json)
+            }
         })
     }
 
