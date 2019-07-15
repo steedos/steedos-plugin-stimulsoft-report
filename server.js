@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import _ from 'underscore';
-import { initPlugin } from './lib/server/index';
+import plugin from './lib/server/index';
 // import objectql from '@steedos/objectql';
 const objectql = require("@steedos/objectql");
 
@@ -32,7 +32,7 @@ const port = 3200;
 process.env.PORT = port;
 process.env.ROOT_URL = "http://localhost:3200";
 
-initPlugin(app);
+plugin.init(app);
 
 app.listen(process.env.PORT || 3000, function (error) {
     if (error) {

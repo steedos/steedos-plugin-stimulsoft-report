@@ -2,6 +2,9 @@ import _ from 'underscore';
 import path from 'path';
 import { loadReports } from './utils';
 import { SteedosReport } from './report';
+import appRoot from 'app-root-path';
+import { initMrts } from './mrt';
+import { default as routes } from './router';
 
 export default class SteedosPlugin { 
     _reports = {}
@@ -10,6 +13,14 @@ export default class SteedosPlugin {
         if (config && config.reportFiles){
             this.useReportFiles(config.reportFiles);
         }
+    }
+
+    init(app){
+        let reportsDir = appRoot.resolve('/src');
+        this.useReportFiles([reportsDir]);
+        initMrts(this.getReports());
+
+        app.use(routes);
     }
 
     get reports() {
