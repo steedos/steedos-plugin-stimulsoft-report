@@ -32,7 +32,7 @@ const port = 3200;
 process.env.PORT = port;
 process.env.ROOT_URL = "http://localhost:3200";
 
-plugin.init(app);
+plugin.init({ app: app });
 
 app.listen(process.env.PORT || 3000, function (error) {
     if (error) {

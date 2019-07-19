@@ -2,8 +2,8 @@ import _ from 'underscore';
 import { default as SteedosPlugin } from './plugin';
 const plugin = new SteedosPlugin();
 
-export function initPlugin(app){
-    return plugin.init(app);
+export function initPlugin(context){
+    return plugin.init(context);
 }
 
 export function getReports() {
