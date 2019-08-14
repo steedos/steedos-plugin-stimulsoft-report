@@ -1,6 +1,6 @@
 {
   "name": "@steedos/plugin-stimulsoft-report",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Steedos Stimulsoft报表插件",
   "main": "lib/server/index",
   "files": [
@@ -12,7 +12,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@steedos/objectql": "^0.1.1",
+    "@steedos/objectql": "^1.0.2",
     "app-root-path": "^2.2.1",
     "babel-loader": "8.0.5",
     "cross-fetch": "^3.0.4",
@@ -65,9 +65,5 @@
     "@babel/register": "^7.4.4",
     "source-map-explorer": "^2.0.1",
     "webpack-cli": "^3.3.5"
-  },
-  "resolutions": {
-    "graphql": "^14.1.1",
-    "@steedos/objectql": "^0.1.1"
   }
 }
