@@ -1,47 +1,20 @@
-import path from 'path';
-import express from 'express';
-import graphqlHTTP from 'express-graphql';
-import _ from 'underscore';
-import plugin from './lib/server/index';
-// import objectql from '@steedos/objectql';
-const objectql = require("@steedos/objectql");
+require('dotenv-flow').config();
 
-let objectsDir = path.resolve('./objects')
-objectql.getSteedosSchema().addDataSource('default', {
-    driver: 'mongo',
-    // url: 'mongodb://192.168.0.77/qhd-beta',
-    url: 'mongodb://192.168.0.21/fssh20190329',
-    objectFiles: [objectsDir]
-});
+var server = require('@steedos/meteor-bundle-runner');
+var steedos = require('@steedos/core')
+// import { init } from './lib/server/index';
 
-let app = express();
+server.Fiber(function () {
+    try {
+        server.Profile.run("Server startup", function () {
+            server.loadServerBundles();
+            steedos.init();
+            server.callStartupHooks();
 
-app.use(function (req, res, next) {
-    //TODO 处理userId
-    next();
-});
-
-_.each(objectql.getSteedosSchema().getDataSources(), function (datasource, name) {
-    app.use(`/graphql/${name}`, graphqlHTTP({
-        schema: datasource.buildGraphQLSchema(),
-        graphiql: true
-    }));
-})
-
-const port = 3200;
-process.env.PORT = port;
-process.env.ROOT_URL = "http://localhost:3200";
-
-plugin.init({ app: app });
-
-app.listen(process.env.PORT || 3000, function (error) {
-    if (error) {
-        console.error(error)
-    } else {
-        console.info('==> Listening on port %s. Open up http://localhost:%s/plugins/stimulsoft/web in your browser.', port, port)
+            server.runMain();
+        })
+    } catch (error) {
+       console.error(error.stack)
     }
-});
-
-
-
+}).run()
 

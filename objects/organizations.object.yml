@@ -159,28 +159,3 @@ actions:
                 }
               }
             }
-permission_set:
-  user:
-    allowCreate: false
-    allowDelete: false
-    allowEdit: false
-    allowRead: true
-    modifyAllRecords: false
-    viewAllRecords: true
-    name: user
-  admin:
-    allowCreate: true
-    allowDelete: true
-    allowEdit: true
-    allowRead: true
-    modifyAllRecords: true
-    viewAllRecords: true
-    name: admin
-  organization_admin:
-    allowCreate: true
-    allowDelete: true
-    allowEdit: true
-    allowRead: true
-    modifyCompanyRecords: true
-    viewAllRecords: true
-    name: organization_admin

@@ -10,8 +10,7 @@ const getObject = (object_name)=> {
 }
 
 const getObjectConfig = (object_name)=> {
-    let object = getObject(object_name);
-    return object ? object.toConfig() : null;
+    return objectql.getObjectConfig(object_name);
 }
 
 const formatObjectFields = (report, objectConfig) => {

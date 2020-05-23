@@ -21,23 +21,6 @@ fields:
     type: lookup
     reference_to: users
     name: owner
-permission_set:
-  user:
-    allowCreate: false
-    allowDelete: false
-    allowEdit: false
-    allowRead: false
-    modifyAllRecords: false
-    viewAllRecords: true
-    name: user
-  admin:
-    allowCreate: true
-    allowDelete: true
-    allowEdit: true
-    allowRead: true
-    modifyAllRecords: true
-    viewAllRecords: true
-    name: admin
 list_views:
   all:
     label: 全部
