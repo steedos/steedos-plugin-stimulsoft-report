@@ -1,0 +1,15 @@
+
+_id : tasks
+name: 任务统计报表
+report_type: 'stimulsoft-report'
+object_name : tasks
+fields:
+  - name
+  - state
+  - assignees
+  - due_date
+filters:
+  - 
+    - state
+    - <>
+    - completed

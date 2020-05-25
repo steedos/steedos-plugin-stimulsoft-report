@@ -3,7 +3,7 @@ datasources:
     connection:
       url: ${MONGO_URL}
     objectFiles:
-      - ./objects/**
+      - ./src/**
 plugins:
   - "@steedos/accounts"
   - "@steedos/app-contracts"
