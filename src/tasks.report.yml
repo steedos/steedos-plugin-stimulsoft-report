@@ -6,9 +6,7 @@ object_name : tasks
 fields:
   - name
   - state
-  - assignees
   - due_date
-  - owner.name
 filters:
   - 
     - state
