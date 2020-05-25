@@ -10,7 +10,7 @@ fields:
   - contract_type.owner.name
 graphql: |
   query {
-    contracts(filters:"owner eq '51a454038e296a1c3b000002'") {
+    contracts(filters:"((create_date ge 2019-12-31T16:00:00Z) and (create_date le 2020-12-31T15:59:59Z))") {
       name
       amount
       contract_type {
