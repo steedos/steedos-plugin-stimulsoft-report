@@ -1,23 +1,27 @@
 
-_id : contracts
-name: 合同列表
+_id : contract_types
+name: 合同按分类统计
 report_type: 'stimulsoft-report'
 object_name : contracts
 fields:
   - name
   - amount
+  - company_id.name
   - contract_type.name
-  - contract_type.owner.name
+  - currency_type.name
 graphql: |
   query {
     contracts(filters:"((create_date ge 2019-12-31T16:00:00Z) and (create_date le 2020-12-31T15:59:59Z))") {
       name
       amount
+      company_id {
+        name
+      }
       contract_type {
         name
-        owner{
-          name
-        }
+      }
+      currency_type {
+        name
       }
     }
   }

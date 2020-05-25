@@ -1,6 +1,6 @@
 
 _id : tasks
-name: 任务统计报表
+name: 任务列表
 report_type: 'stimulsoft-report'
 object_name : tasks
 fields:
@@ -8,6 +8,7 @@ fields:
   - state
   - assignees
   - due_date
+  - owner.name
 filters:
   - 
     - state
