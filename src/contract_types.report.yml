@@ -9,19 +9,55 @@ fields:
   - company_id.name
   - contract_type.name
   - currency_type.name
-graphql: |
-  query {
-    contracts(filters:"((create_date ge 2019-12-31T16:00:00Z) and (create_date le 2020-12-31T15:59:59Z))") {
-      name
-      amount
-      company_id {
-        name
-      }
-      contract_type {
-        name
-      }
-      currency_type {
-        name
-      }
-    }
-  }
+# graphql: |
+#   query {
+#     contracts(filters:[
+#     [
+#       [
+#         "create_date",
+#         "between",
+#         "this_year"
+#       ],
+#       "and",
+#       [
+#         "contract_state",
+#         "<>",
+#         "terminated"
+#       ],
+#       "and",
+#       [
+#         "space",
+#         "=",
+#         "55090bbe527eca33d8000fe0"
+#       ]
+#     ]
+#   ]) {
+#       name
+#       amount
+#       company_id {
+#         name
+#       }
+#       contract_type {
+#         name
+#       }
+#       currency_type {
+#         name
+#       }
+#     }
+#   }
+filters:
+  - 
+    -
+      - create_date
+      - between
+      - this_year
+    - and
+    - 
+      - contract_state
+      - <>
+      - terminated
+    - and
+    -
+      - space
+      - =
+      - 55090bbe527eca33d8000fe0

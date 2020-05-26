@@ -62,6 +62,7 @@
     "@babel/preset-stage-2": "^7.0.0",
     "@babel/register": "^7.4.4",
     "@steedos/accounts": "^1.19.4",
+    "@steedos/filters": "^1.20.5",
     "@steedos/app-contracts": "^1.20",
     "@steedos/meteor-bundle-runner": "^1.20",
     "@steedos/objectql": "^1.20",
