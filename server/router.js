@@ -5,12 +5,27 @@ import { getMrtContent, saveReportToMrtFile } from './mrt';
 import requestHandler from './requestHandler';
 import bodyParser from 'body-parser';
 import { getReportsConfig, getReport } from './index';
+import { setRequestUser } from '@steedos/auth';
 
 const routes = express();
 const rootUrl = "/plugins/stimulsoft";
 const apiUrl = `${rootUrl}/api`;
 
 routes.use(bodyParser.json());
+
+routes.use([`${rootUrl}/web`, `${rootUrl}/api`], setRequestUser);
+
+routes.use([`${rootUrl}/web`, `${rootUrl}/api`], function (req, res, next) {
+  if (req.user) {
+    if (!req.user.spaceId) {
+      res.status(401).send({ status: 'error', message: 'You must pass the params space_id.' });
+      return;
+    }
+    next();
+  } else {
+    res.status(401).send({ status: 'error', message: 'You must be logged in to do this.' });
+  }
+});
 
 // 获取报表模板
 routes.get(`${apiUrl}/mrt/:report_id`, async (req, res) => {
