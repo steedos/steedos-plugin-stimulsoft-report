@@ -35,7 +35,7 @@
         viewer.report = report;
         viewer.renderHtml("report-viewer");
         if (!report.getDictionary().dataSources.count) {
-          window.Stimulsoft.System.StiError.showError("未找到报表", true);
+          window.Stimulsoft.System.StiError.showError("未找到报表或报表mrt内容为空", true);
         }
       }
       window.Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");

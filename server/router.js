@@ -1,11 +1,13 @@
 import path from 'path';
 import express from 'express';
 import reporter from './reporter';
-import { getMrtContent, saveReportToMrtFile } from './mrt';
+import { getMrtContent, getBlankMrtContent, saveReportToMrtFile, getMrtDictionary } from './mrt';
 import requestHandler from './requestHandler';
 import bodyParser from 'body-parser';
 import { getReportsConfig, getReport } from './index';
 import { setRequestUser } from '@steedos/auth';
+import { SteedosReport } from './report';
+import { getObject } from './utils';
 
 const routes = express();
 const rootUrl = "/plugins/stimulsoft";
@@ -35,6 +37,39 @@ routes.get(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   res.send(mrtContent);
 });
 
+// 获取db中的报表模板
+routes.get(`${apiUrl}/mrt_db/:report_id`, async (req, res) => {
+  let { user_filters, ...query } = req.query;
+  if (user_filters) {
+    user_filters = JSON.parse(decodeURI(user_filters));
+  }
+  let report_id = req.params.report_id;
+  let reportObject = getObject("reports");
+  let reportConfig = await reportObject.findOne(report_id);
+  if (!reportConfig) {
+    res.status(404).send(`<b style="color:red">未找到报表xxx:${report_id}</b>`);
+    res.end();
+    return;
+  }
+  let report = new SteedosReport(reportConfig);
+  let missingRequiredFilters = report.getMissingRequiredFilters(user_filters)
+  if (missingRequiredFilters && missingRequiredFilters.length) {
+    res.status(500).send(`<b style="color:red">缺少过滤条件：${JSON.stringify(missingRequiredFilters)}</b>`);
+    res.end();
+    return;
+  }
+  let mrtContent = reportConfig.mrt;
+  if(!mrtContent){
+    mrtContent = getBlankMrtContent(reportConfig, true);
+  }
+  else{
+    mrtContent = JSON.parse(mrtContent);
+    // 因报表指向的object可能有变更，所以每次都自动再获取一次相关配置
+    mrtContent.Dictionary = getMrtDictionary(reportConfig, true);
+  }
+  res.send(mrtContent);
+});
+
 // 报表mrt模板保存
 routes.post(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
@@ -43,11 +78,45 @@ routes.post(`${apiUrl}/mrt/:report_id`, async (req, res) => {
   res.send({});
 });
 
-// 获取报表数据
+// 报表mrt模板保存到数据库
+routes.post(`${apiUrl}/mrt_db/:report_id`, async (req, res) => {
+  let report_id = req.params.report_id;
+  let reportObject = getObject("reports");
+  let result = await reportObject.updateOne(report_id, { mrt: JSON.stringify(req.body)}, req.user);
+  if (!result) {
+    res.status(404).send(`<b style="color:red">报表保存失败！</b>`);
+    res.end();
+    return;
+  }
+  res.send({});
+});
+
+// 获取报表数据，报表来自于yml配置文件
 routes.get(`${apiUrl}/data/:report_id`, async (req, res) => {
+  console.log("===data===");
   let report_id = req.params.report_id;
   let report = getReport(report_id);
+  if (!report) {
+    res.status(404).send(`<b style="color:red">未找到报表:${report_id}</b>`);
+    res.end();
+    return;
+  }
   let data = await reporter.getData(report);
+  res.send(data);
+});
+
+// 获取报表数据，报表来自于数据库
+routes.get(`${apiUrl}/data_db/:report_id`, async (req, res) => {
+  console.log("===data_db===");
+  let report_id = req.params.report_id;
+  let reportObject = getObject("reports");
+  let reportConfig = await reportObject.findOne(report_id);
+  if (!reportConfig) {
+    res.status(404).send(`<b style="color:red">未找到报表:${report_id}</b>`);
+    res.end();
+    return;
+  }
+  let data = await reporter.getData(reportConfig);
   res.send(data);
 });
 
@@ -57,17 +126,31 @@ routes.get(`${apiUrl}/reports`, async (req, res) => {
   res.send(reports);
 });
 
-// 报表设计器WEB界面重定向到相关静态html界面
+// 报表设计器WEB界面重定向到相关静态html界面，报表来自于yml配置文件
 routes.get(`${rootUrl}/web/designer/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
   res.redirect(301, `${rootUrl}/assets/designer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
   res.end();
 });
 
-// 报表查看WEB界面重定向到相关静态html界面
+// 报表设计器WEB界面重定向到相关静态html界面，报表来自于数据库
+routes.get(`${rootUrl}/web/designer_db/:report_id`, async (req, res) => {
+  let report_id = req.params.report_id;
+  res.redirect(301, `${rootUrl}/assets/designer.html?reportUrl=${rootUrl}/api/mrt_db/${report_id}`);
+  res.end();
+});
+
+// 报表查看WEB界面重定向到相关静态html界面，报表来自于yml配置文件
 routes.get(`${rootUrl}/web/viewer/:report_id`, async (req, res) => {
   let report_id = req.params.report_id;
   res.redirect(301, `${rootUrl}/assets/viewer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
+  res.end();
+});
+
+// 报表查看WEB界面重定向到相关静态html界面，报表来自于数据库
+routes.get(`${rootUrl}/web/viewer_db/:report_id`, async (req, res) => {
+  let report_id = req.params.report_id;
+  res.redirect(301, `${rootUrl}/assets/viewer.html?reportUrl=${rootUrl}/api/mrt_db/${report_id}`);
   res.end();
 });
 

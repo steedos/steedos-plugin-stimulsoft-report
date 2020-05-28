@@ -114,12 +114,12 @@ const convertFieldType = (tempField)=> {
     }
 }
 
-const getDatabases = (report) => {
+const getDatabases = (report, isFromDb) => {
     if (!report) {
         return {};
     }
     const rootUrl = "/plugins/stimulsoft/api";
-    let dataUrl = `${rootUrl}/data/${report._id}`;
+    let dataUrl = `${rootUrl}/data${isFromDb ? "_db" : ""}/${report._id}`;
     return {
         "0": {
             "Ident": "StiJsonDatabase",
@@ -130,7 +130,7 @@ const getDatabases = (report) => {
     };
 }
 
-const getDataSources = (report)=> {
+const getDataSources = (report, isFromDb)=> {
     if (!report) {
         return {};
     }
