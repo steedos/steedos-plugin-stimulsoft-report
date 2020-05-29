@@ -31,18 +31,18 @@ routes.use([`${rootUrl}/web`, `${rootUrl}/api`], function (req, res, next) {
 
 // 获取报表模板
 routes.get(`${apiUrl}/mrt/:report_id`, async (req, res) => {
+  let { user_filters, ...query } = req.query;
   let report_id = req.params.report_id;
   let report = getReport(report_id);
   let mrtContent = getMrtContent(report);
+  // 因Dictionary.Databases中PathData属性依赖了user_filters，所以每次都应该重新生成Dictionary值
+  mrtContent.Dictionary = getMrtDictionary(report, user_filters);
   res.send(mrtContent);
 });
 
 // 获取db中的报表模板
 routes.get(`${apiUrl}/mrt_db/:report_id`, async (req, res) => {
   let { user_filters, ...query } = req.query;
-  if (user_filters) {
-    user_filters = JSON.parse(decodeURI(user_filters));
-  }
   let report_id = req.params.report_id;
   let reportObject = getObject("reports");
   let reportConfig = await reportObject.findOne(report_id);
@@ -51,21 +51,14 @@ routes.get(`${apiUrl}/mrt_db/:report_id`, async (req, res) => {
     res.end();
     return;
   }
-  let report = new SteedosReport(reportConfig);
-  let missingRequiredFilters = report.getMissingRequiredFilters(user_filters)
-  if (missingRequiredFilters && missingRequiredFilters.length) {
-    res.status(500).send(`<b style="color:red">缺少过滤条件：${JSON.stringify(missingRequiredFilters)}</b>`);
-    res.end();
-    return;
-  }
   let mrtContent = reportConfig.mrt;
   if(!mrtContent){
-    mrtContent = getBlankMrtContent(reportConfig, true);
+    mrtContent = getBlankMrtContent(reportConfig, user_filters, true);
   }
   else{
     mrtContent = JSON.parse(mrtContent);
     // 因报表指向的object可能有变更，所以每次都自动再获取一次相关配置
-    mrtContent.Dictionary = getMrtDictionary(reportConfig, true);
+    mrtContent.Dictionary = getMrtDictionary(reportConfig, user_filters, true);
   }
   res.send(mrtContent);
 });
@@ -93,7 +86,10 @@ routes.post(`${apiUrl}/mrt_db/:report_id`, async (req, res) => {
 
 // 获取报表数据，报表来自于yml配置文件
 routes.get(`${apiUrl}/data/:report_id`, async (req, res) => {
-  console.log("===data===");
+  let { user_filters, ...query } = req.query;
+  if (user_filters) {
+    user_filters = JSON.parse(decodeURI(user_filters));
+  }
   let report_id = req.params.report_id;
   let report = getReport(report_id);
   if (!report) {
@@ -101,13 +97,22 @@ routes.get(`${apiUrl}/data/:report_id`, async (req, res) => {
     res.end();
     return;
   }
-  let data = await reporter.getData(report);
+  let missingRequiredFilters = report.getMissingRequiredFilters(user_filters)
+  if (missingRequiredFilters && missingRequiredFilters.length) {
+    res.status(500).send(`<b style="color:red">缺少过滤条件：${JSON.stringify(missingRequiredFilters)}</b>`);
+    res.end();
+    return;
+  }
+  let data = await report.getData(user_filters, req.user);
   res.send(data);
 });
 
 // 获取报表数据，报表来自于数据库
 routes.get(`${apiUrl}/data_db/:report_id`, async (req, res) => {
-  console.log("===data_db===");
+  let { user_filters, ...query } = req.query;
+  if (user_filters) {
+    user_filters = JSON.parse(decodeURI(user_filters));
+  }
   let report_id = req.params.report_id;
   let reportObject = getObject("reports");
   let reportConfig = await reportObject.findOne(report_id);
@@ -116,7 +121,14 @@ routes.get(`${apiUrl}/data_db/:report_id`, async (req, res) => {
     res.end();
     return;
   }
-  let data = await reporter.getData(reportConfig);
+  let report = new SteedosReport(reportConfig);
+  let missingRequiredFilters = report.getMissingRequiredFilters(user_filters)
+  if (missingRequiredFilters && missingRequiredFilters.length) {
+    res.status(500).send(`<b style="color:red">缺少过滤条件：${JSON.stringify(missingRequiredFilters)}</b>`);
+    res.end();
+    return;
+  }
+  let data = await report.getData(user_filters, req.user);
   res.send(data);
 });
 

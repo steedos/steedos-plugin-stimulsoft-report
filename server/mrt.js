@@ -7,21 +7,21 @@ const saveReportToMrtFile = (filePath, content) => {
     fs.writeFileSync(filePath, JSON.stringify(content));
 }
 
-const getMrtDictionary = (report, isFromDb) => {
+const getMrtDictionary = (report, user_filters, isFromDb) => {
     if (!report){
         return {
         }
     }
-    let databases = getDatabases(report, isFromDb);
-    let dataSources = getDataSources(report, isFromDb);
+    let databases = getDatabases(report, user_filters, isFromDb);
+    let dataSources = getDataSources(report);
     return {
         "DataSources": dataSources,
         "Databases": databases
     }
 }
 
-const getBlankMrtContent = (report, isFromDb) => {
-    let dictionary = getMrtDictionary(report, isFromDb);
+const getBlankMrtContent = (report, user_filters, isFromDb) => {
+    let dictionary = getMrtDictionary(report, user_filters, isFromDb);
     return {
         "ReportVersion": "2019.2.1",
         "ReportGuid": "2cad802c0dafb11543b53058f6f97645",
