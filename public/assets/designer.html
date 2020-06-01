@@ -57,7 +57,7 @@
       window.Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
       window.Stimulsoft.Base.Localization.StiLocalization.cultureName = "Chinese (Simplified)";
       var query = URI.parseQuery(location.search);
-      renderDesigner(query.reportUrl);
+      renderDesigner(decodeURIComponent(query.reportUrl));
     </script>
   </body>
 </html>

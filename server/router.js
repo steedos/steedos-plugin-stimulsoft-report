@@ -88,7 +88,7 @@ routes.post(`${apiUrl}/mrt_db/:report_id`, async (req, res) => {
 routes.get(`${apiUrl}/data/:report_id`, async (req, res) => {
   let { user_filters, ...query } = req.query;
   if (user_filters) {
-    user_filters = JSON.parse(decodeURI(user_filters));
+    user_filters = JSON.parse(decodeURIComponent(user_filters));
   }
   let report_id = req.params.report_id;
   let report = getReport(report_id);
@@ -111,7 +111,7 @@ routes.get(`${apiUrl}/data/:report_id`, async (req, res) => {
 routes.get(`${apiUrl}/data_db/:report_id`, async (req, res) => {
   let { user_filters, ...query } = req.query;
   if (user_filters) {
-    user_filters = JSON.parse(decodeURI(user_filters));
+    user_filters = JSON.parse(decodeURIComponent(user_filters));
   }
   let report_id = req.params.report_id;
   let reportObject = getObject("reports");
@@ -140,29 +140,57 @@ routes.get(`${apiUrl}/reports`, async (req, res) => {
 
 // 报表设计器WEB界面重定向到相关静态html界面，报表来自于yml配置文件
 routes.get(`${rootUrl}/web/designer/:report_id`, async (req, res) => {
+  let { user_filters, ...query } = req.query;
   let report_id = req.params.report_id;
-  res.redirect(301, `${rootUrl}/assets/designer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
+  let reportUrl = `${rootUrl}/api/mrt/${report_id}`;
+  if(user_filters){
+    reportUrl += `?user_filters=${user_filters}`;
+  }
+  reportUrl = encodeURIComponent(reportUrl);
+  let url = `${rootUrl}/assets/designer.html?reportUrl=${reportUrl}`;
+  res.redirect(301, url);
   res.end();
 });
 
 // 报表设计器WEB界面重定向到相关静态html界面，报表来自于数据库
 routes.get(`${rootUrl}/web/designer_db/:report_id`, async (req, res) => {
+  let { user_filters, ...query } = req.query;
   let report_id = req.params.report_id;
-  res.redirect(301, `${rootUrl}/assets/designer.html?reportUrl=${rootUrl}/api/mrt_db/${report_id}`);
+  let reportUrl = `${rootUrl}/api/mrt_db/${report_id}`;
+  if(user_filters){
+    reportUrl += `?user_filters=${user_filters}`;
+  }
+  reportUrl = encodeURIComponent(reportUrl);
+  let url = `${rootUrl}/assets/designer.html?reportUrl=${reportUrl}`;
+  res.redirect(301, url);
   res.end();
 });
 
 // 报表查看WEB界面重定向到相关静态html界面，报表来自于yml配置文件
 routes.get(`${rootUrl}/web/viewer/:report_id`, async (req, res) => {
+  let { user_filters, ...query } = req.query;
   let report_id = req.params.report_id;
-  res.redirect(301, `${rootUrl}/assets/viewer.html?reportUrl=${rootUrl}/api/mrt/${report_id}`);
+  let reportUrl = `${rootUrl}/api/mrt/${report_id}`;
+  if(user_filters){
+    reportUrl += `?user_filters=${user_filters}`;
+  }
+  reportUrl = encodeURIComponent(reportUrl);
+  let url = `${rootUrl}/assets/viewer.html?reportUrl=${reportUrl}`;
+  res.redirect(301, url);
   res.end();
 });
 
 // 报表查看WEB界面重定向到相关静态html界面，报表来自于数据库
 routes.get(`${rootUrl}/web/viewer_db/:report_id`, async (req, res) => {
+  let { user_filters, ...query } = req.query;
   let report_id = req.params.report_id;
-  res.redirect(301, `${rootUrl}/assets/viewer.html?reportUrl=${rootUrl}/api/mrt_db/${report_id}`);
+  let reportUrl = `${rootUrl}/api/mrt_db/${report_id}`;
+  if(user_filters){
+    reportUrl += `?user_filters=${user_filters}`;
+  }
+  reportUrl = encodeURIComponent(reportUrl);
+  let url = `${rootUrl}/assets/viewer.html?reportUrl=${reportUrl}`;
+  res.redirect(301, url);
   res.end();
 });
 
