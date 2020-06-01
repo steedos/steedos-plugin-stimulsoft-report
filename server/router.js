@@ -46,7 +46,7 @@ routes.get(`${apiUrl}/mrt_db/:report_id`, async (req, res) => {
   let reportObject = getObject("reports");
   let reportConfig = await reportObject.findOne(report_id);
   if (!reportConfig) {
-    res.status(404).send(`<b style="color:red">未找到报表xxx:${report_id}</b>`);
+    res.status(404).send(`<b style="color:red">未找到报表:${report_id}</b>`);
     res.end();
     return;
   }
