@@ -86,6 +86,12 @@ export class SteedosReport {
                     filters = user_filters;
                 }
             }
+            if(filters && filters.length){
+                filters = [filters, "and", ["space", "=", user_session.spaceId]];
+            }
+            else{
+                filters = [["space", "=", user_session.spaceId]]
+            }
             graphqlQuery = formatFiltersToGraphqlQuery(filters, this.fields, user_session);
         }
         let dataResult = await graphql(schema, graphqlQuery);
