@@ -1,6 +1,5 @@
 import path from 'path';
 import express from 'express';
-import reporter from './reporter';
 import { getMrtContent, getBlankMrtContent, saveReportToMrtFile, getMrtDictionary } from './mrt';
 import requestHandler from './requestHandler';
 import bodyParser from 'body-parser';
