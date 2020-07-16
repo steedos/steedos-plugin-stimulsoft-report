@@ -41,10 +41,10 @@ class ReportList extends Component {
                 {items}
             </div>
         );
-    }          
+    }
 
     async componentDidMount(){
-        // 客户端需要主动请求数据
+        // 客户端需要主动请求数据，服务端渲染方式不会执行componentDidMount
         let reports = await loadData('reports');
         let list = [];
         for (let key in reports){

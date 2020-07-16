@@ -18,6 +18,7 @@
     "eject": "react-scripts eject",
     "server": " mv public/index_.html public/index.html && npm run compile && yarn server-start",
     "server-start": "mv public/index.html public/index_.html && node start.js",
+    "nodestart": "node start.js",
     "compile": "npm run build && babel -d lib/src src/ && babel -d lib/server server/ && cp -r build lib",
     "prepare": "npm run compile",
     "os": "cp -r ../object-server/packages/* node_modules/@steedos/ && cp -r ../object-server/apps/contracts/src/* node_modules/@steedos/app-contracts/src/",

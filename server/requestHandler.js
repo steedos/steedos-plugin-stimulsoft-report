@@ -15,7 +15,7 @@ export default async (req, res, next) => {
     const loadBranchData = async (branch) => {
         const promises = branch.map(({ route, match }) => {
             return route.loadData
-                ? route.loadData(match)
+                ? route.loadData(match, req.user)
                 : Promise.resolve(null);
         });
         return await Promise.all(promises).then();

@@ -8,7 +8,7 @@ const Routes = [
         path: '/web/',
         exact: true,
         component: ReportList,
-        loadData: () => loadData('reports', true)
+        loadData: (match, userSession) => loadData('reports', true, userSession)
     },
     {
         component: NotFound

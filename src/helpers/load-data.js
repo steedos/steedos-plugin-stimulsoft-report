@@ -1,6 +1,6 @@
 import fetch from 'cross-fetch';
 
-export default async (resourceType, isProxy) => {
+export default async (resourceType, isProxy, userSession) => {
     let proxy = "";
     if (isProxy){
         proxy = process.env.ROOT_URL;
@@ -9,9 +9,11 @@ export default async (resourceType, isProxy) => {
         proxy = proxy.replace(/\/$/, "");
     }
     let url = `${proxy}/plugins/stimulsoft/api/${resourceType}`;
+    let authorization = "Bearer " + userSession.spaceId + "," + userSession.authToken;
     let response = await fetch(url, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': authorization
         }
     });
     return response.json();
