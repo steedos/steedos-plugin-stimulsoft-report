@@ -72,7 +72,8 @@ export class SteedosReport {
 
     async getData(user_filters, user_session) {
         let schema = objectql.getSteedosSchema().getDataSource().getGraphQLSchema();
-        let graphqlQuery = this.graphql;
+        // let graphqlQuery = this.graphql;
+        let graphqlQuery = ""; //先不支持配置graphql，因为配置后无法带上space
         if (!graphqlQuery) {
             let filters = [];
             if (this.filters) {
